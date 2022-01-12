@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="logo" src="{% static 'authentication/img/soon.png' %}" alt="">
+    <link rel="stylesheet" href="{% static 'authentication/css/register.css' %}">
+{% endblock %}
+
+{% block 'title' %}Sign up{% endblock %}
+
+{% block 'body' %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <div class="soon_sidebar">
+                    <h2 class="soon">
+                        <img class="img_soon_sidebar" src="">IMOBI
+                    </h2>
+                </div>
+                <div class="body_sidebar">
+                    <div>
+                        <h2 class="title color_white">Sign up</h2>
+                    </div>
+                    <div>
+                        <p class="color_white description">The best houses</p>
+                        <p style="margin-top:-20px" class="color_white description">At the best prices</p>
+                        <br>
+                        <br>
+                        <a class="btn_logar" href="{% url 'login'%}">Log in</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="area_register">
+                    <form action="{% url 'register' %}" method="POST">
+                        {% csrf_token %}
+                        <h2 class="title_area_register">Sign up</h2>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert {{message.tags}}">
+                                    {{message}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <br>
+                        <input name="username" class="input_register input_register_name" type="text" placeholder="Username...">
+                        <br>
+                        <br>
+                        <input name="email" class="input_register input_register_email" type="text" placeholder="Email...">
+                        <br>
+                        <br>
+                        <input name="password" class="input_register input_register_password" type="password" placeholder="Password...">
+                        <br>
+                        <input class="btn_register" type="submit" value="Register">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
