@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock  %}
+
+{% block 'body' %}
+
+    <div style="text-align: center" class="container">
+        <br>
+        <br>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for img in building.images.all  %}
+                    <div class="carousel-item {% if forloop.first %} active {% endif %}" >
+                        <img class="d-block w-100" src="{{img}}" alt="First slide">
+                    </div>
+                {% endfor %}
+                
+            </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md">
+                <h3 class="title_specification">value</h3>
+                <p class="specification">R$ {{building.value}}</p>
+
+            </div>
+
+            <div class="col-md">
+                <h3 class="title_specification">Rooms</h3>
+                <p class="specification">{{building.rooms}} rooms</p>
+            </div>
+
+            <div class="col-md">
+                <h3 class="title_specification">size</h3>
+                <p class="specification">{{building.size}}m²</p>
+            </div>
+
+            
+
+        </div>
+        <br>
+        <br>
+        <div style="text-align: left">
+            <h3 class="title_specification">Endereço</h3>
+            <p class="specification_adress">{{building.street}}, {{building.city }}</p>
+        </div>
+        <br>
+        <div style="text-align: left">
+            <h3 class="title_specification">description</h3>
+            <p class="specification_adress">{{building.description}}</p>
+            <br>
+            <button class="btn_schedule_visit" data-toggle="modal" data-target="#exampleModal">SCHEDULE VISIT</button>
+            <br>
+            <br>
+        </div>
+
+        <hr style="border: 1px solid black">
+        <br>
+        <div class="div_possible_interest">
+            <h3 class="title_specification">Talvez você se interesse por</h3>
+            
+            <div class="row">
+                {% for suggestion in suggestions %}
+                    <div class="col-md cont">
+                        <div class="card_building">
+                            <img class="img_cloak_building" src="{{suggestion.images.all.0.img.url}}">
+                            <div class="information_real_state">
+                            <a class="a_none" href="{% url 'building' suggestion.id %}"><h4 class="value">R$ {{suggestion.value}}</h4></a>
+                            <p>{{suggestion.street}}, {{suggestion.city}}</p>
+                            <br>
+                            <img width="7%" src="{% static 'home/img/heart.png' %}">
+                            </div>
+                        
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+            </div>
+            
+            
+            
+        </div>
+        
+
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title titulo_filtrar" id="exampleModalLabel">schedule visit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'schedule_visit' %}" method="POST">{% csrf_token %}
+                            <label>Choose a day</label>
+                            <select name="day" class="form-control">
+                            {% for day in building.visit_days.all %}
+                            <option value="{{day}}">{{day}}</option>
+                            {% endfor %}
+                            </select>
+                            <br>
+                            <label>Choose a time</label>
+                            <select name="timetable" class="form-control">
+                            {% for timetable in building.timetables.all %}
+                            <option value="{{timetable}}">{{timetable}}</option>
+                            {% endfor %}
+                            </select>
+                            <input name="id_building" type="hidden" value="{{id}}">
+                            <br>
+                            <input class="btn_schedule" type="submit" value="schedule">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+
+{% endblock  %}

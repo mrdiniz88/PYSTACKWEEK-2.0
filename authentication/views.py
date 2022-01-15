@@ -16,23 +16,23 @@ def register(request):
         password = request.POST.get('password')
         
         if len(username.strip()) == 0 or len(email.strip()) == 0 or len(password.strip()) == 0:
-            messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
+            messages.add_message(request, constants.ERROR, 'Fill in all fields')
             return redirect('/auth/register')
         
         user = User.objects.filter(username=username)
         
         if user.exists():
-            messages.add_message(request, constants.ERROR, 'Já existe um usuário com esse nome cadastrado')
+            messages.add_message(request, constants.ERROR, 'user already exists')
             return redirect('/auth/register')
         
         try:
             user = User.objects.create_user(username=username, email=email, password=password)
         
             user.save()
-            messages.add_message(request, constants.SUCCESS, 'Cadastro realizado com sucesso')
+            messages.add_message(request, constants.SUCCESS, 'Successful registration')
             return redirect('/auth/login')
         except:
-            messages.add_message(request, constants.ERROR, 'Erro interno do sistema')
+            messages.add_message(request, constants.ERROR, 'Internal error')
             return redirect('/auth/register')
         
 def login(request):
@@ -45,8 +45,13 @@ def login(request):
         password = request.POST.get('password')
         usuario = auth.authenticate(username=username, password=password)
         if not usuario:
-            messages.add_message(request, constants.ERROR, 'Username ou senha inválidos')
+            messages.add_message(request, constants.ERROR, 'Invalid username or password')
             return redirect('/auth/login')
         else:
             auth.login(request, usuario)
             return redirect('/')
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/auth/login')

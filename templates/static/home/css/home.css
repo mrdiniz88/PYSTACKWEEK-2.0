@@ -1,0 +1,90 @@
+.bg_navbar{
+    background-color: #30CD9E;
+}
+    .font_logo{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    display: inline;
+}
+.card_building{
+    background-color: #30CD9E;
+    width: 20rem;
+    margin-top: 50px;
+    border-radius: 26px;
+}
+.img_cloak_building{
+    width: 100%;
+    border-top-left-radius: 26px;
+    border-top-right-radius: 26px;
+}
+.information_real_state{
+    padding: 20px;
+    color: white;
+}
+.value{
+    font-weight: bold;
+    border-bottom: 1px solid white;
+}
+.btn_filter{
+    border: none;
+    background-color: transparent;
+    border: 2px solid #30CD9E;
+    color: #30CD9E;
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+}
+.title_filter{
+    color:#30CD9E;
+    font-weight: bold;
+    font-size: 30px;
+}
+.btn_filter_modal{
+    border: none;
+    color: white;
+    background-color: #30CD9E;
+    font-weight: bold;
+    font-size: 20px;
+}
+.a_none{
+    color: white;
+}
+.a_none:hover{
+    text-decoration: none;
+    color: white;
+}
+.title_specification{
+    color: #30CD9E;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 40px;
+}
+.specification{
+    font-size: 30px;
+    font-weight: bold;
+}
+.specification_address{
+    font-size: 25px;
+}
+.btn_schedule_visit{
+    border: none;
+    background-color: #30CD9E;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px 10px 5px 10px;
+}
+.div_possible_interest{
+    text-align: left;
+}
+.btn_schedule{
+    border: none;
+    background-color: #30CD9E;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px 10px 5px 10px;
+}
+.btn_schedule:hover{
+    text-decoration: none;
+    color: white;
+}

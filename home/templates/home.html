@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
+{% block 'body' %}
+    <div class="container">
+        <br>
+        <button type="button" class="btn_filter" data-toggle="modal"
+        data-target="#exampleModal">
+        filter
+        </button>
+        <div class="row">
+            {% for building  in real_state %}
+                <div class="col-md cont">
+                    <div class="card_building">
+                        <img class="img_cloak_building" src="{{building.images.all.0.img.url}}">
+                        <div class="information_real_state">
+                            <a class="a_none" href="{% url 'building' building.id %}"><h4 class="value">R$ {{building.value}}</h4></a>
+                            <p>{{building.street}}, {{building.city}}</p>
+                            <br>
+                            <img width="7%" src="{% static 'home/img/heart.png' %}">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title title_filter" id="exampleModalLabel">FILTER</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'home' %}" method="GET">
+              <label>price mínimo</label>
+              <br>
+              <input name="min_price" class="form-control" type="number" placeholder="R$ 00">
+    
+              <br>
+    
+              <label>price máximo</label>
+              <br>
+              <input name="max_price" class="form-control" type="number" placeholder="R$ 200000000">
+    
+              <br>
+    
+              <label>city</label>
+              <br>
+              <select name="city" class="form-control">
+                {% for city in cities %}
+                  <option value="{{city.id}}">{{city.name}}</option>
+                
+                {% endfor %}    
+              </select>
+    
+              <br>
+    
+              <label>kind</label>
+              <br>
+    
+              <input name="kind" type="checkbox" value="A"><label>&nbspApartment</label>
+              <br>
+              <input name="kind" type="checkbox" value="H"><label>&nbspHouse</label>
+              <br>
+              <br>
+              <input class="btn_filter_modal" type="submit" value="FILTER">
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+{% endblock %}

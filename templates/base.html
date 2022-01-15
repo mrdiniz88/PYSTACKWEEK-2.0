@@ -3,14 +3,54 @@
 <html lang="pt-BR">
     <head>
         {% block 'head' %}{% endblock %}
-        <link type="icon" rel="icon" href="{% static 'authentication/img/soon.png' %}">
+        
+        <link type="icon" rel="icon" href="{% static 'authentication/img/logo.png' %}">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-        
+        <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
         <title>{% block 'title' %}{% endblock %}</title>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg_navbar">
+            <a class="navbar-brand" href="{% url 'home' %}">
+            <img width="40" src="{% static 'authentication/img/logo.png' %}"> 
+            &nbsp<h3 class="font_logo">IMOBI</h3></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Scheduling</a>
+                    </li>
+                </ul>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="collapse navbar-collapse" id="navbarNav" style="margin-left: 45rem;">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="collapse navbar-collapse" id="navbarNav" style="margin-left: 45rem;">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav" style="margin-left: 20px;">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+            
+        </nav>
+
         
         {% block 'body' %}{% endblock %}
 
