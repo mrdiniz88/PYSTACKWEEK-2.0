@@ -62,4 +62,24 @@ def schedule_visit(request):
         timetable=timetable
     )
     visit.save()
-    return redirect('/agendamentos')
+    return redirect('/scheduling')
+
+
+def scheduling(request):
+    if request.user.is_authenticated:
+        visits = Visits.objects.filter(user=request.user)
+        return render(request, 'scheduling.html', {'visits': visits})
+    else:
+        messages.add_message(request, constants.WARNING, 'Login required')
+        return redirect('/auth/login')
+
+def cancel_scheduling(request, id):
+    if request.user.is_authenticated:
+        visits = get_object_or_404(Visits, id=id)
+        visits.status = "C"
+        visits.save()
+        return redirect('/scheduling')
+    else:
+        messages.add_message(request, constants.WARNING, 'Login required')
+        return redirect('/auth/login')
+    

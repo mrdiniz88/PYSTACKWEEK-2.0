@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+
+{% endblock  %}
+
+
+{% block 'body' %}
+
+    <div class="container">
+        
+        <br>
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">img</th>
+                <th scope="col">Adress</th>
+                <th scope="col">Day/Timetable</th>
+                <th scope="col">Status</th>
+                <th scope="col">Canceled</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for visit in visits %}
+                <tr>
+                    <th><img width="80" src="{{visit.building.images.all.0}}"></th>
+                    <td>{{visit.building.street}}, {{visit.building.city}}</td>
+                    <td>{{visit.day}}/{{visit.timetable}}</td>
+                    <td>
+                        {% if visit.status == "S" %}
+                            <span class="badge badge-info">Scheduled</span>
+                        {% endif %}
+
+                        {% if visit.status == "F" %}
+                            <span class="badge badge-success">Finalized</span>
+                        {% endif %}
+
+                        {% if visit.status == "C" %}
+                            <span class="badge badge-danger">Canceled</span>
+                        {% endif %}
+                    </td>
+                    <td>
+
+                        {% if visit.status == "S" %}
+                            <a href="{% url 'cancel_scheduling' visit.id %}" class="btn btn-danger">CANCEL</a>
+                        {% else %}
+                            <a href="" class="btn btn-danger disabled">CANCEL</a>
+                        
+                        {% endif %}
+
+                        
+                    
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    
+
+
+{% endblock  %}
